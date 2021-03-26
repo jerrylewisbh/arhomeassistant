@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e461012f009ffd448280cc609d73c73, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  APIEndpoint: 
+  APIEndpoint: https://api.openweathermap.org/data/2.5/weather?lat={0}&lon={1}&units={2}&appid={3}
   APIKey: 17c2675a2edd4cec3a5c68b867ae440f
   updateInterval: 60
   unit: metric
   maxTimeToWait: 20
-  devEnabled: 0
+  devEnabled: 1
   lat: -23.5475
   lon: -46.6361
