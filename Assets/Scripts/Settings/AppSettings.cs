@@ -13,6 +13,12 @@ public class AppSettings : ScriptableObject
     public string unit = "metric";
 
 
+    [Header("Light API")]
+    public string EndPointURL = "https://api.lifx.com/v1/lights/{0}/state";
+    public string lightID = "d073d53f4171";
+    public string token = "cf7fff0e240e8bfcd10d5fce38ee66599fe0e536906a30a4292939bf8b3a7aeb";
+
+
     [Header("Geolocation")]
     [Tooltip("Timeout (in seconds) to wait for GPS access")]
     public int maxTimeToWait = 20;

@@ -37,10 +37,20 @@ public class WeatherView : MonoBehaviour
 
     public void OnEnable()
     {
+
+        services = FindObjectOfType<Services>();
+
+        if(settings == null || services == null)
+        {
+            return;
+        }
+
         Services.OnWeatherRetrieved += OnWeatherRetrieved;
         Services.OnWeatherFailed += OnWeatherFailed;
 
         StartCoroutine(UpdateWeatherState());
+
+        services.ChangeLightState("on", "green", 0.5f);
     }
 
     private void OnWeatherRetrieved(WeatherData data)

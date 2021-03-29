@@ -81,4 +81,37 @@ public class Services : MonoBehaviour
         }
 
     }
+
+    IEnumerator SendLightRequest(string state, string color, float brightness)
+    {
+        string uri = string.Format(settings.EndPointURL, settings.lightID);
+
+        LightState light = new LightState(state, color, brightness);
+
+        string payload = JsonUtility.ToJson(light);
+
+
+
+
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Put(uri, payload))
+        {
+            webRequest.SetRequestHeader("Authorization", $"Bearer {settings.token}");
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log("Error");
+            }
+
+            Debug.Log(webRequest.downloadHandler.text);
+
+        }
+    }
+
+    public void ChangeLightState(string state, string color, float brightness)
+    {
+        StartCoroutine(SendLightRequest(state, color, brightness));
+    }
 }
