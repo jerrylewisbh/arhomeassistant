@@ -22,7 +22,7 @@ public class Services : MonoBehaviour
     }
     IEnumerator GetGeoLocation()
     {
-        Input.location.Start();
+        Input.location.Start(1, 100);
 
         // Wait until service initializes
         int maxWait = settings.maxTimeToWait;
