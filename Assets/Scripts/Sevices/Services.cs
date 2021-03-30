@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -86,6 +86,11 @@ public class Services : MonoBehaviour
 
     IEnumerator SendLightRequest(string state, string color, float brightness)
     {
+
+        //wait for the animation 
+        //TODO: improve this
+        yield return new WaitForSeconds(1); 
+
         string uri = string.Format(settings.EndPointURL, settings.lightID);
 
         LightState light = new LightState(state, color, brightness);
