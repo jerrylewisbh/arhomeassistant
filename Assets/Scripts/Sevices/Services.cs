@@ -14,6 +14,8 @@ public class Services : MonoBehaviour
     [SerializeField]
     private AppSettings settings;
 
+    public bool lightState = false;
+
     public void GetWeatherByLocation()
     {
         StartCoroutine(GetGeoLocation());
@@ -91,9 +93,6 @@ public class Services : MonoBehaviour
         string payload = JsonUtility.ToJson(light);
 
 
-
-
-
         using (UnityWebRequest webRequest = UnityWebRequest.Put(uri, payload))
         {
             webRequest.SetRequestHeader("Authorization", $"Bearer {settings.token}");
@@ -104,8 +103,10 @@ public class Services : MonoBehaviour
             {
                 Debug.Log("Error");
             }
-
-            Debug.Log(webRequest.downloadHandler.text);
+            else if (webRequest.downloadHandler.text.Contains("ok"))
+            {
+                lightState = !lightState;
+            }
 
         }
     }

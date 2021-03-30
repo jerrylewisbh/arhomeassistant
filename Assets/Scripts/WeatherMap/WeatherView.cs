@@ -25,10 +25,19 @@ public class WeatherView : MonoBehaviour
     private GameObject night;
 
     [SerializeField]
-    public Services services;
+    private Services services;
 
     [SerializeField]
-    public AppSettings settings;
+    private AppSettings settings;
+
+    [SerializeField]
+    private WeatherPanel panel;
+
+
+    private void Awake()
+    {
+        panel = FindObjectOfType<WeatherPanel>();
+    }
 
     private void Start()
     {
@@ -40,7 +49,7 @@ public class WeatherView : MonoBehaviour
 
         services = FindObjectOfType<Services>();
 
-        if(settings == null || services == null)
+        if (settings == null || services == null)
         {
             return;
         }
@@ -49,14 +58,13 @@ public class WeatherView : MonoBehaviour
         Services.OnWeatherFailed += OnWeatherFailed;
 
         StartCoroutine(UpdateWeatherState());
-
-        services.ChangeLightState("on", "green", 0.5f);
     }
 
     private void OnWeatherRetrieved(WeatherData data)
     {
         DisableAll();
         EnableWeatherRepresentation(data.weather[0].id, data.dt, data.sys.sunrise, data.sys.sunset);
+        panel.UpdateData(data);
     }
     private void OnWeatherFailed(WeatherData data)
     {
