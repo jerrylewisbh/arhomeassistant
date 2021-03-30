@@ -2,36 +2,41 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeatherPanel : MonoBehaviour
 {
 
     [SerializeField]
-    public TMP_Text city;
+    private Image icon;
+
 
     [SerializeField]
-    public TMP_Text main;
+    private TMP_Text city;
 
     [SerializeField]
-    public TMP_Text description;
+    private TMP_Text main;
 
     [SerializeField]
-    public TMP_Text temperature;
+    private TMP_Text description;
 
     [SerializeField]
-    public TMP_Text feelsLike;
+    private TMP_Text temperature;
 
     [SerializeField]
-    public TMP_Text tempRange;
+    private TMP_Text feelsLike;
 
     [SerializeField]
-    public TMP_Text pressure;
+    private TMP_Text tempRange;
 
     [SerializeField]
-    public TMP_Text humidity;
+    private TMP_Text pressure;
 
     [SerializeField]
-    public TMP_Text wind;
+    private TMP_Text humidity;
+
+    [SerializeField]
+    private TMP_Text wind;
 
     public void UpdateData(WeatherData data)
     {
@@ -45,9 +50,10 @@ public class WeatherPanel : MonoBehaviour
         humidity.text = "Humidity: " + data.main.humidity + "%";
         pressure.text = "Pressure: " + data.main.pressure.ToString();
         wind.text = "Wind: " + data.wind.speed + "Km/h";
+    }
 
-
-
-
+    public void SetIcon(Sprite image)
+    {
+        icon.sprite = image;
     }
 }

@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.Networking;
 
 [Serializable]
 public class WeatherDescriptor
@@ -65,6 +64,7 @@ public class WeatherView : MonoBehaviour
         DisableAll();
         EnableWeatherRepresentation(data.weather[0].id, data.dt, data.sys.sunrise, data.sys.sunset);
         panel.UpdateData(data);
+        StartCoroutine(GerURLIcon(data.weather[0].icon));
     }
     private void OnWeatherFailed(WeatherData data)
     {
@@ -132,5 +132,29 @@ public class WeatherView : MonoBehaviour
         }
     }
 
+    IEnumerator GerURLIcon(string icon)
+    {
+        using (var www = UnityWebRequestTexture.GetTexture($"https://openweathermap.org/img/wn/{icon}@4x.png"))
+        {
+            yield return www.SendWebRequest();
 
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                if (www.isDone)
+                {
+                    var texture = DownloadHandlerTexture.GetContent(www);
+                    var rect = new Rect(0, 0, 200, 200);
+                    var sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+                    panel.SetIcon(sprite);
+
+                }
+            }
+
+
+        }
+    }
 }

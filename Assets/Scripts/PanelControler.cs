@@ -15,6 +15,12 @@ public class PanelControler : MonoBehaviour
     public void ToggleLight()
     {
         services.ChangeLightState(services.lightState ? "off": "on", "white", 1);
+        //TODO: remove this from here 
+
+        AgentController agent = FindObjectOfType<AgentController>();
+        agent.action = true;
+        agent.GetComponent<Animator>().SetTrigger("PushButton");
+
     }
     public void ToggleWeatherPanel()
     {
